@@ -1,13 +1,20 @@
 package com.barabam.ormispring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class BookService {
 
 	private final BookRepository bookRepository;
@@ -85,5 +92,21 @@ public class BookService {
 		return bookRepository.findByTitleContaining(keyword).stream()
 			.map(BookDTO::fromEntity)
 			.collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public List<BookDTO> findByTitleContainsIgnoreCaseAndAuthorContainsIgnoreCase(SearchData searchData) {
+		log.info("title = {}, author = {}, stock = {}", searchData.getTitle() , searchData.getAuthor(), searchData.getStock());
+		Specification<Book> spec = (root, query, cb) -> null;
+		spec = spec.and(BookSpecification.likeBookTitle(searchData.getTitle()));
+
+		spec = spec.and(BookSpecification.likeBookAuthor(searchData.getAuthor()));
+
+
+		List<Book> books = bookRepository.findAll(spec);
+		return books.stream()
+			.map(BookDTO::fromEntity)
+			.collect(Collectors.toList());
+
 	}
 }

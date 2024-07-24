@@ -83,4 +83,10 @@ public class BookController {
 		return ResponseEntity.ok(books);
 	}
 
+	@GetMapping("/search")
+	public ResponseEntity<List<BookDTO>> getBooksByTitleContaining(@ModelAttribute SearchData searchData) {
+		List<BookDTO> books = bookService.findByTitleContainsIgnoreCaseAndAuthorContainsIgnoreCase(searchData);
+		return ResponseEntity.ok(books);
+	}
+
 }
