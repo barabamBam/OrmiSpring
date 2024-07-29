@@ -3,14 +3,14 @@ spring:
   name: Ormi-Spring
 
   datasource:
-    url: jdbc:mysql://localhost:3306/bookstore
+    url: jdbc:mysql://localhost:3306/restaurant
     username: root
     password: '0000'
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:

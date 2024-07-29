@@ -1,3 +1,4 @@
+/*
 package com.barabam.specification;
 
 import com.springProject.PostsSpecification;
@@ -66,3 +67,4 @@ public class PostsService {
 		return postsDtos;
 	}
 }
+*/

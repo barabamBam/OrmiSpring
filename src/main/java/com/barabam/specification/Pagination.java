@@ -1,3 +1,4 @@
+/*
 package com.barabam.specification;
 
 import lombok.Data;
@@ -69,3 +70,4 @@ public class Pagination {
 	}
 
 }
+*/
